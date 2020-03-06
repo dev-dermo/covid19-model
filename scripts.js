@@ -69,7 +69,11 @@ $(document).ready(function() {
 		$('#total-infections').text(Math.floor(environment.totalInfections));
 		$('#total-recovered').text(Math.floor(environment.totalSurvivors));
 		$('#healthy-people').text(Math.floor(environment.healthyPeople));
-	}, 2500);
+
+		for (var i=0;i<(Math.floor(environment.totalDeaths / 10000));i++) {
+			$('.icons').append('<i class="fa fa-users" aria-hidden="true"></i>');
+		}
+	}, 2000);
 
 	// console.table(environment);
 	// console.log('Healthy people: ' + environment.healthyPeople);
