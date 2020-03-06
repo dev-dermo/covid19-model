@@ -5,7 +5,7 @@ $(document).ready(function() {
 		name: "COVID-19",
 		reproductionRate: 2.5, 				// 2.5
 		deathRate: 0.034, 						// 3.4%
-		incubationPeriod: 2, 					// weeks
+		incubationPeriod: 1, 					// weeks
 		infectPeople: function() {
 			environment.newInfections*=this.reproductionRate;
 			if (environment.newInfections > environment.healthyPeople) {
@@ -62,10 +62,10 @@ $(document).ready(function() {
 		virus.infectPeople();
 		virus.surviveOrDie();
 
-		// console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
+		console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
 
 		$('#total-deaths').text(Math.floor(environment.totalDeaths));
-		$('#week').text(environment.week);
+		$('#week').text(Math.floor(environment.week));
 		$('#total-infections').text(Math.floor(environment.totalInfections));
 		$('#total-recovered').text(Math.floor(environment.totalSurvivors));
 		$('#healthy-people').text(Math.floor(environment.healthyPeople));
