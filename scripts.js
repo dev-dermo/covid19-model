@@ -69,7 +69,7 @@ $(document).ready(function() {
 		$('#total-infections').text(Math.floor(environment.totalInfections));
 		$('#total-recovered').text(Math.floor(environment.totalSurvivors));
 		$('#healthy-people').text(Math.floor(environment.healthyPeople));
-	}, 3000);
+	}, 2500);
 
 	// console.table(environment);
 	// console.log('Healthy people: ' + environment.healthyPeople);
