@@ -56,8 +56,7 @@ $(document).ready(function() {
 
 	console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
 
-
-	var intervalId = setInterval(function() {
+	function updatePage() {
 		environment.incrementTime();
 		virus.infectPeople();
 		virus.surviveOrDie();
@@ -73,7 +72,10 @@ $(document).ready(function() {
 		for (var i=0;i<(Math.floor(environment.totalDeaths / 10000));i++) {
 			$('.icons').append('<i class="fa fa-users" aria-hidden="true"></i>');
 		}
-	}, 2000);
+	}
+
+
+	var intervalId = setInterval(updatePage, 2000);
 
 	// console.table(environment);
 	// console.log('Healthy people: ' + environment.healthyPeople);
