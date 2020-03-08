@@ -5,7 +5,8 @@ $(document).ready(function() {
 		name: "COVID-19",
 		reproductionRate: 2.5, 				// 2.5
 		deathRate: 0.034, 						// 3.4%
-		incubationPeriod: 1, 					// weeks
+		incubationPeriod: 2, 					// weeks
+		dampener: 1,
 		infectPeople: function() {
 			environment.newInfections*=this.reproductionRate;
 			if (environment.newInfections > environment.healthyPeople) {
@@ -65,13 +66,15 @@ $(document).ready(function() {
 
 		$('#total-deaths').text(Math.floor(environment.totalDeaths));
 		$('#week').text(Math.floor(environment.week));
-		$('#total-infections').text(Math.floor(environment.totalInfections));
+		$('#total-infections').text(Math.floor(environment.newInfections));
 		$('#total-recovered').text(Math.floor(environment.totalSurvivors));
 		$('#healthy-people').text(Math.floor(environment.healthyPeople));
 
 		for (var i=0;i<(Math.floor(environment.totalDeaths / 10000));i++) {
 			$('.icons').append('<i class="fa fa-users" aria-hidden="true"></i>');
 		}
+
+		virus.reproductionRate *= virus.dampener;
 	}
 
 
