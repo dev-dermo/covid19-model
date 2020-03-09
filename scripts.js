@@ -1,12 +1,13 @@
 $(document).ready(function() {
 	// model our virus characteristics
+	var intervalId;
 
 	var virus = {
 		name: "COVID-19",
 		reproductionRate: 2.5, 				// 2.5
 		deathRate: 0.034, 						// 3.4%
 		incubationPeriod: 2, 					// weeks
-		dampener: 1,
+		dampener: 1,									// rate of infection rate decline
 		infectPeople: function() {
 			environment.newInfections*=this.reproductionRate;
 			if (environment.newInfections > environment.healthyPeople) {
@@ -42,7 +43,7 @@ $(document).ready(function() {
 	var environment = {
 		name: "United States of America",
 		population: 330000000, 				// 330 million,
-		healthyPeople: 330000000 - 1,
+		healthyPeople: 0,
 		newInfections: 1,
 		totalInfections: 1,
 		newDeaths: 0,
@@ -54,6 +55,29 @@ $(document).ready(function() {
 			this.week+=virus.incubationPeriod;
 		}
 	};
+	environment.healthyPeople = environment.population - 1;
+
+
+	$('#reproduction-rate').val(virus.reproductionRate);
+	$('#death-rate').val(virus.deathRate);
+	$('#reproduction-cycle').val(virus.incubationPeriod);
+	$('#dampener').val(virus.dampener);
+	$('#population').val(environment.population);
+	$('#healthy-people').text(environment.healthyPeople);
+
+	$('input').on('change', function() {
+		virus.reproductionRate = parseFloat($('#reproduction-rate').val());
+		virus.deathRate = parseFloat($('#death-rate').val());
+		virus.incubationPeriod = parseFloat($('#reproduction-cycle').val());
+		virus.dampener = parseFloat($('#dampener').val());
+		environment.population = parseFloat($('#population').val());
+		environment.healthyPeople = environment.population - 1;
+		$('#healthy-people').text(environment.healthyPeople);
+	});
+
+	$('#start').on('click', function() {
+		intervalId = setInterval(updatePage, 500);
+	});
 
 	console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
 
@@ -64,10 +88,10 @@ $(document).ready(function() {
 
 		console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
 
-		$('#total-deaths').text(Math.floor(environment.totalDeaths));
+		$('#total-deaths').text(Math.floor(environment.totalDeaths) + 1);
 		$('#week').text(Math.floor(environment.week));
-		$('#total-infections').text(Math.floor(environment.newInfections));
-		$('#total-recovered').text(Math.floor(environment.totalSurvivors));
+		$('#total-infections').text(Math.floor(environment.totalInfections));
+		$('#total-recovered').text(Math.floor(environment.totalSurvivors) + 1);
 		$('#healthy-people').text(Math.floor(environment.healthyPeople));
 
 		for (var i=0;i<(Math.floor(environment.totalDeaths / 10000));i++) {
@@ -78,7 +102,7 @@ $(document).ready(function() {
 	}
 
 
-	var intervalId = setInterval(updatePage, 2000);
+	
 
 	// console.table(environment);
 	// console.log('Healthy people: ' + environment.healthyPeople);

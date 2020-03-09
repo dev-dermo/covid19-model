@@ -10,13 +10,51 @@
 	<title>A Categorically bad Coronavirus Model</title>
 </head>
 <body>
+	<div class="container-fluid">
+		<div class="row text-center">
+			<div class="col-md">
+				<label>Reproduction Rate:<br>
+					<input id="reproduction-rate" type="number" value="" step="0.1">
+				</label>
+			</div>
+			
+			<div class="col-md">
+				<label>Death Rate:<br>
+					<input id="death-rate" type="number" value="" step="0.001">
+				</label>
+			</div>
+			
+			<div class="col-md">
+				<label>Reproduction Cycle:<br>
+					<input id="reproduction-cycle" type="number" value="" step="0.1">
+				</label>
+			</div>
+
+			<div class="col-md">
+				<label>Dampener:<br>
+					<input id="dampener" type="number" value="" step="0.001">
+				</label>
+			</div>
+
+			<div class="col-md">
+				<label>Population:<br>
+					<input id="population" type="number" value="" step="1">
+				</label>
+			</div>
+		</div>
+		<div class="row text-center">
+			<div class="col-12">
+				<button id="start" class="btn btn-primary">Start</button>
+			</div>
+		</div>
+	</div>
 	<div class="container text-center">
 		<div class="row">
 			<!--<h1>open the console.</h1>-->
 			<div class="col-lg-6">
-				<h1>Total Deaths:<br>
+				<h2>Total Deaths:<br>
 					<span id="total-deaths">0</span>
-				</h1>
+				</h2>
 			</div>
 			<div class="col-lg-6">
 				<h2>Reproduction Cycle:<br>
@@ -35,7 +73,7 @@
 			</div>
 			<div class="col-lg-4">
 				<h2>Healthy People:<br>
-				<span id="healthy-people">329999999</span></h2>
+				<span id="healthy-people"></span></h2>
 			</div>
 		</div>
 		<div class="row">
