@@ -58,7 +58,7 @@ $(document).ready(function() {
 	// model our environment where the virus is present
 	var environment = {
 		name: "United States of America",
-		population: 330000000, 				// 330 million,
+		population: 4830000, 				// 330 million,
 		healthyPeople: 0,
 		newInfections: 1,
 		totalInfections: 1,
@@ -94,7 +94,7 @@ $(document).ready(function() {
 	});
 
 	$('#start').on('click', function() {
-		intervalId = setInterval(updatePage, 800);
+		intervalId = setInterval(updatePage, 1500);
 	});
 
 	// console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
@@ -117,6 +117,7 @@ $(document).ready(function() {
 		}
 
 		virus.reproductionRate *= virus.dampener;
+		// alert(virus.reproductionRate);
 	}
 
 
