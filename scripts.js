@@ -28,19 +28,20 @@ $(document).ready(function() {
 				this.stopInterval();
 			}
 
-			var popCovCap = environment.population * virus.populationCoverageCap;
-			if (environment.totalInfections > popCovCap) {
-				// virus.reproductionRate = 0;
-				// virus.deathRate = 0;
-				environment.totalInfections = popCovCap;
-				// alert(Math.floor(environment.totalInfections * virus.deathRate));
-				environment.totalDeaths = Math.floor(environment.totalInfections * virus.deathRate);
-				environment.totalSurvivors = environment.totalInfections - environment.totalDeaths;
-				updatePage();
-
-				this.stopInterval();
-				// alert('Pop cap reached');
-			}
+			// var popCovCap = environment.population * virus.populationCoverageCap;
+			// console.log(popCovCap);
+			// if (environment.totalInfections > popCovCap) {
+			// 	environment.totalInfections = popCovCap;
+			// 	environment.totalDeaths = Math.floor(environment.totalInfections * virus.deathRate);
+			// 	environment.totalSurvivors = environment.totalInfections - environment.totalDeaths;
+			// 	console.log(environment.totalSurvivors);
+			// 	// environment.healthyPeople = environment.totalSurvivors + environment.totalDeaths;
+			// 	// $('#total-deaths').text(Math.floor(environment.totalDeaths));
+			// 	// $('#total-infections').text(Math.floor(environment.totalInfections));
+			// 	// $('#total-recovered').text(Math.floor(environment.totalSurvivors));
+				
+			// 	this.stopInterval();
+			// }
 		},
 		surviveOrDie: function() {
 			environment.newDeaths = environment.newInfections * this.deathRate;
@@ -86,23 +87,24 @@ $(document).ready(function() {
 		virus.deathRate = parseFloat($('#death-rate').val());
 		virus.incubationPeriod = parseFloat($('#reproduction-cycle').val());
 		virus.dampener = parseFloat($('#dampener').val());
+		virus.populationCoverageCap = parseFloat($('#population-coverage-cap').val());
 		environment.population = parseFloat($('#population').val());
 		environment.healthyPeople = environment.population - 1;
 		$('#healthy-people').text(environment.healthyPeople);
 	});
 
 	$('#start').on('click', function() {
-		intervalId = setInterval(updatePage, 500);
+		intervalId = setInterval(updatePage, 800);
 	});
 
-	console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
+	// console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
 
 	function updatePage() {
 		environment.incrementTime();
 		virus.infectPeople();
 		virus.surviveOrDie();
 
-		console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
+		// console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
 
 		$('#total-deaths').text(Math.floor(environment.totalDeaths));
 		$('#week').text(Math.floor(environment.week));
