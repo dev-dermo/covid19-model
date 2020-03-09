@@ -8,6 +8,7 @@ $(document).ready(function() {
 		deathRate: 0.034, 						// 3.4%
 		incubationPeriod: 2, 					// weeks
 		dampener: 1,									// rate of infection rate decline
+		populationCoverageCap: 0.4,
 		infectPeople: function() {
 			environment.newInfections*=this.reproductionRate;
 			if (environment.newInfections > environment.healthyPeople) {
@@ -25,6 +26,20 @@ $(document).ready(function() {
 			if (environment.healthyPeople < 0) {
 				environment.healthyPeople = 0;
 				this.stopInterval();
+			}
+
+			var popCovCap = environment.population * virus.populationCoverageCap;
+			if (environment.totalInfections > popCovCap) {
+				// virus.reproductionRate = 0;
+				// virus.deathRate = 0;
+				environment.totalInfections = popCovCap;
+				// alert(Math.floor(environment.totalInfections * virus.deathRate));
+				environment.totalDeaths = Math.floor(environment.totalInfections * virus.deathRate);
+				environment.totalSurvivors = environment.totalInfections - environment.totalDeaths;
+				updatePage();
+
+				this.stopInterval();
+				// alert('Pop cap reached');
 			}
 		},
 		surviveOrDie: function() {
@@ -62,6 +77,7 @@ $(document).ready(function() {
 	$('#death-rate').val(virus.deathRate);
 	$('#reproduction-cycle').val(virus.incubationPeriod);
 	$('#dampener').val(virus.dampener);
+	$('#population-coverage-cap').val(virus.populationCoverageCap);
 	$('#population').val(environment.population);
 	$('#healthy-people').text(environment.healthyPeople);
 
@@ -88,10 +104,10 @@ $(document).ready(function() {
 
 		console.log('On week ' + Math.floor(environment.week) + ', after ' + Math.floor(environment.totalInfections) + ' total infections, there are ' + Math.floor(environment.totalDeaths) + ' total deaths and ' + Math.floor(environment.totalSurvivors) + ' total recovered survivors.');
 
-		$('#total-deaths').text(Math.floor(environment.totalDeaths) + 1);
+		$('#total-deaths').text(Math.floor(environment.totalDeaths));
 		$('#week').text(Math.floor(environment.week));
 		$('#total-infections').text(Math.floor(environment.totalInfections));
-		$('#total-recovered').text(Math.floor(environment.totalSurvivors) + 1);
+		$('#total-recovered').text(Math.floor(environment.totalSurvivors));
 		$('#healthy-people').text(Math.floor(environment.healthyPeople));
 
 		for (var i=0;i<(Math.floor(environment.totalDeaths / 10000));i++) {
